@@ -13,6 +13,7 @@
 #include "area.h"
 #include "save_file.h"
 #include "print.h"
+#include "../../enhancements/puppycam.h"
 
 /* @file hud.c
  * This file implements HUD rendering and power meter animations.
@@ -43,7 +44,7 @@ static s16 sPowerMeterStoredHealth;
 
 static struct PowerMeterHUD sPowerMeterHUD = {
     POWER_METER_HIDDEN,
-    140,
+    288,
     166,
     1.0,
 };
@@ -136,16 +137,7 @@ void render_dl_power_meter(s16 numHealthWedges) {
  * Checks its timer to later change into deemphasizing mode.
  */
 void animate_power_meter_emphasized(void) {
-    s16 hudDisplayFlags;
-    hudDisplayFlags = gHudDisplay.flags;
-
-    if (!(hudDisplayFlags & HUD_DISPLAY_FLAG_EMPHASIZE_POWER)) {
-        if (sPowerMeterVisibleTimer == 45.0) {
-            sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
-        }
-    } else {
-        sPowerMeterVisibleTimer = 0;
-    }
+    sPowerMeterHUD.y = 207;
 }
 
 /**
@@ -153,26 +145,7 @@ void animate_power_meter_emphasized(void) {
  * Moves power meter y pos speed until it's at 200 to be visible.
  */
 static void animate_power_meter_deemphasizing(void) {
-    s16 speed = 5;
-
-    if (sPowerMeterHUD.y >= 181) {
-        speed = 3;
-    }
-
-    if (sPowerMeterHUD.y >= 191) {
-        speed = 2;
-    }
-
-    if (sPowerMeterHUD.y >= 196) {
-        speed = 1;
-    }
-
-    sPowerMeterHUD.y += speed;
-
-    if (sPowerMeterHUD.y >= 201) {
-        sPowerMeterHUD.y = 200;
-        sPowerMeterHUD.animation = POWER_METER_VISIBLE;
-    }
+    sPowerMeterHUD.y = 207;
 }
 
 /**
@@ -192,7 +165,7 @@ static void animate_power_meter_hiding(void) {
  */
 void handle_power_meter_actions(s16 numHealthWedges) {
     // Show power meter if health is not full, less than 8
-    if (numHealthWedges < 8 && sPowerMeterStoredHealth == 8 && sPowerMeterHUD.animation == POWER_METER_HIDDEN) {
+    if (numHealthWedges < 8 && sPowerMeterStoredHealth == 8) {
         sPowerMeterHUD.animation = POWER_METER_EMPHASIZED;
         sPowerMeterHUD.y = 166;
     }
@@ -265,19 +238,19 @@ void render_hud_power_meter(void) {
 /**
  * Renders the amount of lives Mario has.
  */
-void render_hud_mario_lives(void) {
+/*void render_hud_mario_lives(void) {
     print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(22), HUD_TOP_Y, ","); // 'Mario Head' glyph
     print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(38), HUD_TOP_Y, "*"); // 'X' glyph
     print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(54), HUD_TOP_Y, "%d", gHudDisplay.lives);
-}
+}*/
 
 /**
  * Renders the amount of coins collected.
  */
 void render_hud_coins(void) {
-    print_text(168, HUD_TOP_Y, "+"); // 'Coin' glyph
-    print_text(184, HUD_TOP_Y, "*"); // 'X' glyph
-    print_text_fmt_int(198, HUD_TOP_Y, "%d", gHudDisplay.coins);
+    print_text(12, 199, "+"); // 'Coin' glyph
+    print_text(28, 199, "*"); // 'X' glyph
+    print_text_fmt_int(44, 199, "%d", gHudDisplay.coins);
 }
 
 #ifdef VERSION_JP
@@ -291,22 +264,17 @@ void render_hud_coins(void) {
  * Disables "X" glyph when Mario has 100 stars or more.
  */
 void render_hud_stars(void) {
-    s8 showX = 0;
 
     if (gHudFlash == 1 && gGlobalTimer & 0x08) {
         return;
     }
 
-    if (gHudDisplay.stars < 100) {
-        showX = 1;
-    }
 
-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X), HUD_TOP_Y, "-"); // 'Star' glyph
-    if (showX == 1) {
-        print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16, HUD_TOP_Y, "*"); // 'X' glyph
-    }
-    print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
-                       HUD_TOP_Y, "%d", gHudDisplay.stars);
+    print_text(12, 219, "-"); // 'Star' glyph
+
+    print_text(28, 219, "*"); // 'X' glyph
+    
+    print_text_fmt_int(44, 219, "%d", gHudDisplay.stars);
 }
 
 /**
@@ -451,9 +419,9 @@ void render_hud(void) {
             render_hud_cannon_reticle();
         }
 
-        if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
+        /*if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
             render_hud_mario_lives();
-        }
+        }*/
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
             render_hud_coins();
@@ -469,7 +437,8 @@ void render_hud(void) {
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_CAMERA_AND_POWER) {
             render_hud_power_meter();
-            render_hud_camera_status();
+            if (!newcam_active)
+                render_hud_camera_status();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIMER) {

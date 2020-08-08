@@ -49,6 +49,35 @@ void *vec3f_sum(Vec3f dest, Vec3f a, Vec3f b) {
     return &dest; //! warning: function returns address of local variable
 }
 
+/// Multiply vector 'dest' by a
+void *vec3f_mul(Vec3f dest, f32 a)
+{
+    dest[0] *= a;
+    dest[1] *= a;
+    dest[2] *= a;
+    return &dest; //! warning: function returns address of local variable
+}
+
+/// Get length of vector 'a'
+f32 vec3f_length(Vec3f a)
+{
+	return sqrtf(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
+}
+
+/// Get dot product of vectors 'a' and 'b'
+f32 vec3f_dot(Vec3f a, Vec3f b)
+{
+	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+
+/// Make 'dest' the difference of vectors a and b.
+void *vec3f_dif(Vec3f dest, Vec3f a, Vec3f b) {
+    dest[0] = a[0] - b[0];
+    dest[1] = a[1] - b[1];
+    dest[2] = a[2] - b[2];
+    return &dest; //! warning: function returns address of local variable
+}
+
 /// Copy vector src to dest
 void *vec3s_copy(Vec3s dest, Vec3s src) {
     dest[0] = src[0];
@@ -575,7 +604,9 @@ void mtxf_to_mtx(Mtx *dest, Mat4 src) {
     register f32 *t1 = (f32 *) src;
 
     for (i = 0; i < 16; i++) {
-        asFixedPoint = *t1++ * (1 << 16); //! float-to-integer conversion responsible for PU crashes
+        //asFixedPoint = *t1++ * (1 << 16); //! float-to-integer conversion responsible for PU crashes
+        asFixedPoint = *t1++ * 24576.0; //! float-to-integer conversion responsible for PU crashes
+
         *a3++ = GET_HIGH_S16_OF_32(asFixedPoint); // integer part
         *t0++ = GET_LOW_S16_OF_32(asFixedPoint);  // fraction part
     }

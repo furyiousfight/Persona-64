@@ -1714,8 +1714,8 @@ void print_save_file_star_count(s8 fileIndex, s16 x, s16 y) {
         // If star count is less than 100, print x icon and move
         // the star count text one digit to the right.
         if (starCount < 100) {
-            print_hud_lut_string(HUD_LUT_GLOBAL, x + 16, y, xIcon);
-            offset = 16;
+            
+            offset = 0;
         }
         // Print star count
         int_to_str(starCount, starCountText);

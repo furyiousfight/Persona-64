@@ -1,0 +1,430 @@
+diff --git a/desktop.ini b/desktop.ini
+new file mode 100644
+index 0000000..ceae44e
+--- /dev/null
++++ b/desktop.ini
+@@ -0,0 +1,2 @@
++[LocalizedFileNames]
++Super Mario 64 (U) [!].z64=@Super Mario 64 (U) [!],0
+diff --git a/include/config.h b/include/config.h
+index 0a1255e..e59295d 100644
+--- a/include/config.h
++++ b/include/config.h
+@@ -30,9 +30,9 @@
+ // Border Height Define for NTSC Versions
+ #ifdef TARGET_N64
+ #ifndef VERSION_EU
+-#define BORDER_HEIGHT 8
++#define BORDER_HEIGHT 0
+ #else
+-#define BORDER_HEIGHT 1
++#define BORDER_HEIGHT 0
+ #endif
+ #else
+ // What's the point of having a border?
+diff --git a/levels/intro/script.c b/levels/intro/script.c
+index 4975dbb..30ff7f6 100644
+--- a/levels/intro/script.c
++++ b/levels/intro/script.c
+@@ -37,7 +37,7 @@ const LevelScript level_intro_entry_1[] = {
+     CMD2A(/*unk2*/ 1),
+     CLEAR_LEVEL(),
+     SLEEP(/*frames*/ 2),
+-    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, level_intro_entry_2),
++    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, script_intro_L1),
+ };
+ 
+ const LevelScript level_intro_entry_2[] = {
+diff --git a/skip.patch b/skip.patch
+new file mode 100644
+index 0000000..fd962e8
+--- /dev/null
++++ b/skip.patch
+@@ -0,0 +1,110 @@
++diff --git a/desktop.ini b/desktop.ini
++new file mode 100644
++index 0000000..ceae44e
++--- /dev/null
+++++ b/desktop.ini
++@@ -0,0 +1,2 @@
+++[LocalizedFileNames]
+++Super Mario 64 (U) [!].z64=@Super Mario 64 (U) [!],0
++diff --git a/levels/intro/script.c b/levels/intro/script.c
++index 4975dbb..30ff7f6 100644
++--- a/levels/intro/script.c
+++++ b/levels/intro/script.c
++@@ -37,7 +37,7 @@ const LevelScript level_intro_entry_1[] = {
++     CMD2A(/*unk2*/ 1),
++     CLEAR_LEVEL(),
++     SLEEP(/*frames*/ 2),
++-    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, level_intro_entry_2),
+++    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, script_intro_L1),
++ };
++ 
++ const LevelScript level_intro_entry_2[] = {
++diff --git a/skipOP.patch b/skipOP.patch
++new file mode 100644
++index 0000000..92bd5d0
++--- /dev/null
+++++ b/skipOP.patch
++@@ -0,0 +1,52 @@
+++diff --git a/desktop.ini b/desktop.ini
+++new file mode 100644
+++index 0000000..ceae44e
+++--- /dev/null
++++++ b/desktop.ini
+++@@ -0,0 +1,2 @@
++++[LocalizedFileNames]
++++Super Mario 64 (U) [!].z64=@Super Mario 64 (U) [!],0
+++diff --git a/levels/intro/script.c b/levels/intro/script.c
+++index 4975dbb..30ff7f6 100644
+++--- a/levels/intro/script.c
++++++ b/levels/intro/script.c
+++@@ -37,7 +37,7 @@ const LevelScript level_intro_entry_1[] = {
+++     CMD2A(/*unk2*/ 1),
+++     CLEAR_LEVEL(),
+++     SLEEP(/*frames*/ 2),
+++-    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, level_intro_entry_2),
++++    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, script_intro_L1),
+++ };
+++ 
+++ const LevelScript level_intro_entry_2[] = {
+++diff --git a/src/game/level_update.c b/src/game/level_update.c
+++index 5ecc48d..89b0290 100644
+++--- a/src/game/level_update.c
++++++ b/src/game/level_update.c
+++@@ -1190,9 +1190,6 @@ s32 init_level(void) {
+++                 if (gMarioState->action != ACT_UNINITIALIZED) {
+++                     if (save_file_exists(gCurrSaveFileNum - 1)) {
+++                         set_mario_action(gMarioState, ACT_IDLE, 0);
+++-                    } else {
+++-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
+++-                        val4 = 1;
+++                     }
+++                 }
+++             }
+++@@ -1259,7 +1256,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
+++ #endif
+++     sWarpDest.type = WARP_TYPE_NOT_WARPING;
+++     sDelayedWarpOp = WARP_OP_NONE;
+++-    gShouldNotPlayCastleMusic = !save_file_exists(gCurrSaveFileNum - 1);
++++    gShouldNotPlayCastleMusic = FALSE;
+++ 
+++     gCurrLevelNum = levelNum;
+++     gCurrCourseNum = COURSE_NONE;
+++diff --git a/tools/ido7.1_compiler.tar/ido7.1_compiler.tar b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar
+++new file mode 100644
+++index 0000000..7d62e61
+++Binary files /dev/null and b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar differ
+++diff --git a/tools/iplfontutil b/tools/iplfontutil
+++new file mode 100644
+++index 0000000..739721b
+++Binary files /dev/null and b/tools/iplfontutil differ
++diff --git a/src/game/level_update.c b/src/game/level_update.c
++index 5ecc48d..89b0290 100644
++--- a/src/game/level_update.c
+++++ b/src/game/level_update.c
++@@ -1190,9 +1190,6 @@ s32 init_level(void) {
++                 if (gMarioState->action != ACT_UNINITIALIZED) {
++                     if (save_file_exists(gCurrSaveFileNum - 1)) {
++                         set_mario_action(gMarioState, ACT_IDLE, 0);
++-                    } else {
++-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
++-                        val4 = 1;
++                     }
++                 }
++             }
++@@ -1259,7 +1256,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
++ #endif
++     sWarpDest.type = WARP_TYPE_NOT_WARPING;
++     sDelayedWarpOp = WARP_OP_NONE;
++-    gShouldNotPlayCastleMusic = !save_file_exists(gCurrSaveFileNum - 1);
+++    gShouldNotPlayCastleMusic = FALSE;
++ 
++     gCurrLevelNum = levelNum;
++     gCurrCourseNum = COURSE_NONE;
++diff --git a/tools/ido7.1_compiler.tar/ido7.1_compiler.tar b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar
++new file mode 100644
++index 0000000..7d62e61
++Binary files /dev/null and b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar differ
++diff --git a/tools/iplfontutil b/tools/iplfontutil
++new file mode 100644
++index 0000000..739721b
++Binary files /dev/null and b/tools/iplfontutil differ
+diff --git a/skipOP.patch b/skipOP.patch
+new file mode 100644
+index 0000000..92bd5d0
+--- /dev/null
++++ b/skipOP.patch
+@@ -0,0 +1,52 @@
++diff --git a/desktop.ini b/desktop.ini
++new file mode 100644
++index 0000000..ceae44e
++--- /dev/null
+++++ b/desktop.ini
++@@ -0,0 +1,2 @@
+++[LocalizedFileNames]
+++Super Mario 64 (U) [!].z64=@Super Mario 64 (U) [!],0
++diff --git a/levels/intro/script.c b/levels/intro/script.c
++index 4975dbb..30ff7f6 100644
++--- a/levels/intro/script.c
+++++ b/levels/intro/script.c
++@@ -37,7 +37,7 @@ const LevelScript level_intro_entry_1[] = {
++     CMD2A(/*unk2*/ 1),
++     CLEAR_LEVEL(),
++     SLEEP(/*frames*/ 2),
++-    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, level_intro_entry_2),
+++    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, script_intro_L1),
++ };
++ 
++ const LevelScript level_intro_entry_2[] = {
++diff --git a/src/game/level_update.c b/src/game/level_update.c
++index 5ecc48d..89b0290 100644
++--- a/src/game/level_update.c
+++++ b/src/game/level_update.c
++@@ -1190,9 +1190,6 @@ s32 init_level(void) {
++                 if (gMarioState->action != ACT_UNINITIALIZED) {
++                     if (save_file_exists(gCurrSaveFileNum - 1)) {
++                         set_mario_action(gMarioState, ACT_IDLE, 0);
++-                    } else {
++-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
++-                        val4 = 1;
++                     }
++                 }
++             }
++@@ -1259,7 +1256,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
++ #endif
++     sWarpDest.type = WARP_TYPE_NOT_WARPING;
++     sDelayedWarpOp = WARP_OP_NONE;
++-    gShouldNotPlayCastleMusic = !save_file_exists(gCurrSaveFileNum - 1);
+++    gShouldNotPlayCastleMusic = FALSE;
++ 
++     gCurrLevelNum = levelNum;
++     gCurrCourseNum = COURSE_NONE;
++diff --git a/tools/ido7.1_compiler.tar/ido7.1_compiler.tar b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar
++new file mode 100644
++index 0000000..7d62e61
++Binary files /dev/null and b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar differ
++diff --git a/tools/iplfontutil b/tools/iplfontutil
++new file mode 100644
++index 0000000..739721b
++Binary files /dev/null and b/tools/iplfontutil differ
+diff --git a/src/game/hud.c b/src/game/hud.c
+index 8d4daa5..3f1eb69 100644
+--- a/src/game/hud.c
++++ b/src/game/hud.c
+@@ -43,7 +43,7 @@ static s16 sPowerMeterStoredHealth;
+ 
+ static struct PowerMeterHUD sPowerMeterHUD = {
+     POWER_METER_HIDDEN,
+-    140,
++    288,
+     166,
+     1.0,
+ };
+@@ -136,16 +136,7 @@ void render_dl_power_meter(s16 numHealthWedges) {
+  * Checks its timer to later change into deemphasizing mode.
+  */
+ void animate_power_meter_emphasized(void) {
+-    s16 hudDisplayFlags;
+-    hudDisplayFlags = gHudDisplay.flags;
+-
+-    if (!(hudDisplayFlags & HUD_DISPLAY_FLAG_EMPHASIZE_POWER)) {
+-        if (sPowerMeterVisibleTimer == 45.0) {
+-            sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
+-        }
+-    } else {
+-        sPowerMeterVisibleTimer = 0;
+-    }
++    sPowerMeterHUD.y = 207;
+ }
+ 
+ /**
+@@ -153,26 +144,7 @@ void animate_power_meter_emphasized(void) {
+  * Moves power meter y pos speed until it's at 200 to be visible.
+  */
+ static void animate_power_meter_deemphasizing(void) {
+-    s16 speed = 5;
+-
+-    if (sPowerMeterHUD.y >= 181) {
+-        speed = 3;
+-    }
+-
+-    if (sPowerMeterHUD.y >= 191) {
+-        speed = 2;
+-    }
+-
+-    if (sPowerMeterHUD.y >= 196) {
+-        speed = 1;
+-    }
+-
+-    sPowerMeterHUD.y += speed;
+-
+-    if (sPowerMeterHUD.y >= 201) {
+-        sPowerMeterHUD.y = 200;
+-        sPowerMeterHUD.animation = POWER_METER_VISIBLE;
+-    }
++    sPowerMeterHUD.y = 207;
+ }
+ 
+ /**
+@@ -192,7 +164,7 @@ static void animate_power_meter_hiding(void) {
+  */
+ void handle_power_meter_actions(s16 numHealthWedges) {
+     // Show power meter if health is not full, less than 8
+-    if (numHealthWedges < 8 && sPowerMeterStoredHealth == 8 && sPowerMeterHUD.animation == POWER_METER_HIDDEN) {
++    if (numHealthWedges < 8 && sPowerMeterStoredHealth == 8) {
+         sPowerMeterHUD.animation = POWER_METER_EMPHASIZED;
+         sPowerMeterHUD.y = 166;
+     }
+@@ -265,19 +237,19 @@ void render_hud_power_meter(void) {
+ /**
+  * Renders the amount of lives Mario has.
+  */
+-void render_hud_mario_lives(void) {
++/*void render_hud_mario_lives(void) {
+     print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(22), HUD_TOP_Y, ","); // 'Mario Head' glyph
+     print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(38), HUD_TOP_Y, "*"); // 'X' glyph
+     print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(54), HUD_TOP_Y, "%d", gHudDisplay.lives);
+-}
++}*/
+ 
+ /**
+  * Renders the amount of coins collected.
+  */
+ void render_hud_coins(void) {
+-    print_text(168, HUD_TOP_Y, "+"); // 'Coin' glyph
+-    print_text(184, HUD_TOP_Y, "*"); // 'X' glyph
+-    print_text_fmt_int(198, HUD_TOP_Y, "%d", gHudDisplay.coins);
++    print_text(12, 199, "+"); // 'Coin' glyph
++    print_text(28, 199, "*"); // 'X' glyph
++    print_text_fmt_int(44, 199, "%d", gHudDisplay.coins);
+ }
+ 
+ #ifdef VERSION_JP
+@@ -291,22 +263,17 @@ void render_hud_coins(void) {
+  * Disables "X" glyph when Mario has 100 stars or more.
+  */
+ void render_hud_stars(void) {
+-    s8 showX = 0;
+ 
+     if (gHudFlash == 1 && gGlobalTimer & 0x08) {
+         return;
+     }
+ 
+-    if (gHudDisplay.stars < 100) {
+-        showX = 1;
+-    }
+ 
+-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X), HUD_TOP_Y, "-"); // 'Star' glyph
+-    if (showX == 1) {
+-        print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16, HUD_TOP_Y, "*"); // 'X' glyph
+-    }
+-    print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
+-                       HUD_TOP_Y, "%d", gHudDisplay.stars);
++    print_text(12, 219, "-"); // 'Star' glyph
++
++    print_text(28, 219, "*"); // 'X' glyph
++    
++    print_text_fmt_int(44, 219, "%d", gHudDisplay.stars);
+ }
+ 
+ /**
+@@ -451,9 +418,9 @@ void render_hud(void) {
+             render_hud_cannon_reticle();
+         }
+ 
+-        if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
++        /*if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
+             render_hud_mario_lives();
+-        }
++        }*/
+ 
+         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
+             render_hud_coins();
+diff --git a/src/game/level_update.c b/src/game/level_update.c
+index 5ecc48d..89b0290 100644
+--- a/src/game/level_update.c
++++ b/src/game/level_update.c
+@@ -1190,9 +1190,6 @@ s32 init_level(void) {
+                 if (gMarioState->action != ACT_UNINITIALIZED) {
+                     if (save_file_exists(gCurrSaveFileNum - 1)) {
+                         set_mario_action(gMarioState, ACT_IDLE, 0);
+-                    } else {
+-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
+-                        val4 = 1;
+                     }
+                 }
+             }
+@@ -1259,7 +1256,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
+ #endif
+     sWarpDest.type = WARP_TYPE_NOT_WARPING;
+     sDelayedWarpOp = WARP_OP_NONE;
+-    gShouldNotPlayCastleMusic = !save_file_exists(gCurrSaveFileNum - 1);
++    gShouldNotPlayCastleMusic = FALSE;
+ 
+     gCurrLevelNum = levelNum;
+     gCurrCourseNum = COURSE_NONE;
+diff --git a/src/game/mario_actions_cutscene.c b/src/game/mario_actions_cutscene.c
+index 3817fd1..9f07b6e 100644
+--- a/src/game/mario_actions_cutscene.c
++++ b/src/game/mario_actions_cutscene.c
+@@ -1173,7 +1173,7 @@ s32 act_death_exit(struct MarioState *m) {
+ #ifdef VERSION_SH
+         queue_rumble_data(5, 80);
+ #endif
+-        m->numLives--;
++        //m->numLives--;
+         // restore 7.75 units of health
+         m->healCounter = 31;
+     }
+@@ -1189,7 +1189,7 @@ s32 act_unused_death_exit(struct MarioState *m) {
+ #else
+         play_sound(SOUND_MARIO_OOOF2, m->marioObj->header.gfx.cameraToObject);
+ #endif
+-        m->numLives--;
++        //m->numLives--;
+         // restore 7.75 units of health
+         m->healCounter = 31;
+     }
+@@ -1208,7 +1208,7 @@ s32 act_falling_death_exit(struct MarioState *m) {
+ #ifdef VERSION_SH
+         queue_rumble_data(5, 80);
+ #endif
+-        m->numLives--;
++        //m->numLives--;
+         // restore 7.75 units of health
+         m->healCounter = 31;
+     }
+@@ -1255,7 +1255,7 @@ s32 act_special_death_exit(struct MarioState *m) {
+ #ifdef VERSION_SH
+         queue_rumble_data(5, 80);
+ #endif
+-        m->numLives--;
++        //m->numLives--;
+         m->healCounter = 31;
+     }
+     // show Mario
+diff --git a/src/menu/file_select.c b/src/menu/file_select.c
+index df28306..3fc98ab 100644
+--- a/src/menu/file_select.c
++++ b/src/menu/file_select.c
+@@ -1714,8 +1714,8 @@ void print_save_file_star_count(s8 fileIndex, s16 x, s16 y) {
+         // If star count is less than 100, print x icon and move
+         // the star count text one digit to the right.
+         if (starCount < 100) {
+-            print_hud_lut_string(HUD_LUT_GLOBAL, x + 16, y, xIcon);
+-            offset = 16;
++            
++            offset = 0;
+         }
+         // Print star count
+         int_to_str(starCount, starCountText);
+diff --git a/tools/ido7.1_compiler.tar/ido7.1_compiler.tar b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar
+new file mode 100644
+index 0000000..7d62e61
+Binary files /dev/null and b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar differ
+diff --git a/tools/iplfontutil b/tools/iplfontutil
+new file mode 100644
+index 0000000..739721b
+Binary files /dev/null and b/tools/iplfontutil differ

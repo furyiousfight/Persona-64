@@ -78,3 +78,7 @@ UNUSED static const u64 binid_17 = 17;
 
 #include "koopa_shell/model.inc.c"
 UNUSED static const u64 binid_18 = 18;
+
+#include "Wario/model.inc.c"
+#include "Wario/anims/data.inc.c"
+#include "Wario/anims/table.inc.c"

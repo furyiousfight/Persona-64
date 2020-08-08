@@ -1,0 +1,110 @@
+diff --git a/desktop.ini b/desktop.ini
+new file mode 100644
+index 0000000..ceae44e
+--- /dev/null
++++ b/desktop.ini
+@@ -0,0 +1,2 @@
++[LocalizedFileNames]
++Super Mario 64 (U) [!].z64=@Super Mario 64 (U) [!],0
+diff --git a/levels/intro/script.c b/levels/intro/script.c
+index 4975dbb..30ff7f6 100644
+--- a/levels/intro/script.c
++++ b/levels/intro/script.c
+@@ -37,7 +37,7 @@ const LevelScript level_intro_entry_1[] = {
+     CMD2A(/*unk2*/ 1),
+     CLEAR_LEVEL(),
+     SLEEP(/*frames*/ 2),
+-    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, level_intro_entry_2),
++    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, script_intro_L1),
+ };
+ 
+ const LevelScript level_intro_entry_2[] = {
+diff --git a/skipOP.patch b/skipOP.patch
+new file mode 100644
+index 0000000..92bd5d0
+--- /dev/null
++++ b/skipOP.patch
+@@ -0,0 +1,52 @@
++diff --git a/desktop.ini b/desktop.ini
++new file mode 100644
++index 0000000..ceae44e
++--- /dev/null
+++++ b/desktop.ini
++@@ -0,0 +1,2 @@
+++[LocalizedFileNames]
+++Super Mario 64 (U) [!].z64=@Super Mario 64 (U) [!],0
++diff --git a/levels/intro/script.c b/levels/intro/script.c
++index 4975dbb..30ff7f6 100644
++--- a/levels/intro/script.c
+++++ b/levels/intro/script.c
++@@ -37,7 +37,7 @@ const LevelScript level_intro_entry_1[] = {
++     CMD2A(/*unk2*/ 1),
++     CLEAR_LEVEL(),
++     SLEEP(/*frames*/ 2),
++-    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, level_intro_entry_2),
+++    EXIT_AND_EXECUTE(/*seg*/ 0x14, _introSegmentRomStart, _introSegmentRomEnd, script_intro_L1),
++ };
++ 
++ const LevelScript level_intro_entry_2[] = {
++diff --git a/src/game/level_update.c b/src/game/level_update.c
++index 5ecc48d..89b0290 100644
++--- a/src/game/level_update.c
+++++ b/src/game/level_update.c
++@@ -1190,9 +1190,6 @@ s32 init_level(void) {
++                 if (gMarioState->action != ACT_UNINITIALIZED) {
++                     if (save_file_exists(gCurrSaveFileNum - 1)) {
++                         set_mario_action(gMarioState, ACT_IDLE, 0);
++-                    } else {
++-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
++-                        val4 = 1;
++                     }
++                 }
++             }
++@@ -1259,7 +1256,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
++ #endif
++     sWarpDest.type = WARP_TYPE_NOT_WARPING;
++     sDelayedWarpOp = WARP_OP_NONE;
++-    gShouldNotPlayCastleMusic = !save_file_exists(gCurrSaveFileNum - 1);
+++    gShouldNotPlayCastleMusic = FALSE;
++ 
++     gCurrLevelNum = levelNum;
++     gCurrCourseNum = COURSE_NONE;
++diff --git a/tools/ido7.1_compiler.tar/ido7.1_compiler.tar b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar
++new file mode 100644
++index 0000000..7d62e61
++Binary files /dev/null and b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar differ
++diff --git a/tools/iplfontutil b/tools/iplfontutil
++new file mode 100644
++index 0000000..739721b
++Binary files /dev/null and b/tools/iplfontutil differ
+diff --git a/src/game/level_update.c b/src/game/level_update.c
+index 5ecc48d..89b0290 100644
+--- a/src/game/level_update.c
++++ b/src/game/level_update.c
+@@ -1190,9 +1190,6 @@ s32 init_level(void) {
+                 if (gMarioState->action != ACT_UNINITIALIZED) {
+                     if (save_file_exists(gCurrSaveFileNum - 1)) {
+                         set_mario_action(gMarioState, ACT_IDLE, 0);
+-                    } else {
+-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
+-                        val4 = 1;
+                     }
+                 }
+             }
+@@ -1259,7 +1256,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
+ #endif
+     sWarpDest.type = WARP_TYPE_NOT_WARPING;
+     sDelayedWarpOp = WARP_OP_NONE;
+-    gShouldNotPlayCastleMusic = !save_file_exists(gCurrSaveFileNum - 1);
++    gShouldNotPlayCastleMusic = FALSE;
+ 
+     gCurrLevelNum = levelNum;
+     gCurrCourseNum = COURSE_NONE;
+diff --git a/tools/ido7.1_compiler.tar/ido7.1_compiler.tar b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar
+new file mode 100644
+index 0000000..7d62e61
+Binary files /dev/null and b/tools/ido7.1_compiler.tar/ido7.1_compiler.tar differ
+diff --git a/tools/iplfontutil b/tools/iplfontutil
+new file mode 100644
+index 0000000..739721b
+Binary files /dev/null and b/tools/iplfontutil differ
