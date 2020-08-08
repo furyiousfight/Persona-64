@@ -9104,7 +9104,7 @@ BAD_RETURN(s32) cutscene_read_message(struct Camera *c) {
             break;
         // Leave the dialog.
         case 1:
-         
+           
 
             // This could cause softlocks. If a message starts one frame after another one closes, the
             // cutscene will never end.
