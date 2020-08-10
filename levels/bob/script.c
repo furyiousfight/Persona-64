@@ -42,11 +42,12 @@ const LevelScript level_bob_entry[] = {
 
 	AREA(1, bob_area_1),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_BUTTERFLY, -1227, 378, -295, 0, 0, 0, 0x00000000, bhvButterfly),
 		OBJECT(MODEL_NONE, -1588, 48, -572, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
-		OBJECT(MODEL_WARIO, -1232, 378, -258, 0, 0, 0, 0x00000000, bhvWarioNPC),
+		OBJECT(MODEL_WARIO, -1101, 378, -516, 0, 0, 0, 0x00000000, bhvWarioNPC),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_area_root_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SPOOKY),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_EVENT_PIRANHA_PLANT),
 		TERRAIN_TYPE(TERRAIN_SNOW),
 	END_AREA(),
 

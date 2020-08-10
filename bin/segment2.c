@@ -2163,9 +2163,9 @@ const Gfx dl_rgba16_text_end[] = {
 
 // 0x0200EDA8 - 0x0200EDE8
 static const Vtx vertex_text_bg_box[] = {
-    {{{     0,    -80,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{   130,    -80,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{   130,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
+    {{{     0,    -75,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
+    {{{   250,    -75,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
+    {{{   250,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
     {{{     0,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
 };
 
@@ -3385,3 +3385,4 @@ const s16 seg2_painting_mesh_neighbor_tris[] = {
       3, 240, 242, 244,
       1, 243,
 };
+

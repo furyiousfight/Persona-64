@@ -8938,7 +8938,7 @@ BAD_RETURN(s32) cutscene_dialog_start(struct Camera *c) {
 
 
     cutscene_soften_music(c);
-    set_time_stop_flags(TIME_STOP_ENABLED | TIME_STOP_DIALOG);
+
 
 #ifndef VERSION_JP
     if (c->mode == CAMERA_MODE_BOSS_FIGHT) {
@@ -9099,7 +9099,7 @@ BAD_RETURN(s32) cutscene_read_message(struct Camera *c) {
         case 0:
             if (get_dialog_id() != -1) {
                 sCutsceneVars[0].angle[0] += 1;
-                set_time_stop_flags(TIME_STOP_ENABLED | TIME_STOP_DIALOG);
+                
             }
             break;
         // Leave the dialog.

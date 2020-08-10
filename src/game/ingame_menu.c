@@ -1660,7 +1660,7 @@ s8 gDialogCourseActNum = 1;
 #define DIAG_VAL4 4
 #else
 #define DIAG_VAL1 16
-#define DIAG_VAL3 132 // US & EU
+#define DIAG_VAL3 260 // US & EU
 #define DIAG_VAL4 5
 #endif
 #ifdef VERSION_EU

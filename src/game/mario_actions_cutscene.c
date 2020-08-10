@@ -448,7 +448,7 @@ s32 act_reading_automatic_dialog(struct MarioState *m) {
 
     m->actionState++;
     if (m->actionState == 2) {
-        enable_time_stop();
+        
     }
     if (m->actionState < 9) {
         set_mario_animation(m, m->prevAction == ACT_STAR_DANCE_WATER ? MARIO_ANIM_WATER_IDLE
@@ -505,7 +505,7 @@ s32 act_reading_sign(struct MarioState *m) {
         // start dialog
         case 0:
             trigger_cutscene_dialog(1);
-            enable_time_stop();
+            
             // reading sign
             set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
             m->actionState = 1;
@@ -618,7 +618,7 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                 if ((m->actionArg & 1) == 0) {
                     level_trigger_warp(m, WARP_OP_STAR_EXIT);
                 } else {
-                    enable_time_stop();
+                    
                     create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
                     m->actionState = 1;
                 }
@@ -1091,7 +1091,7 @@ s32 act_exit_land_save_dialog(struct MarioState *m) {
             if (is_anim_past_end(m)) {
                 if (gLastCompletedCourseNum != COURSE_BITDW
                     && gLastCompletedCourseNum != COURSE_BITFS) {
-                    enable_time_stop();
+                    
                 }
 
                 set_menu_mode(RENDER_COURSE_DONE_SCREEN);
@@ -1596,7 +1596,7 @@ s32 act_putting_on_cap(struct MarioState *m) {
     s32 animFrame = set_mario_animation(m, MARIO_ANIM_PUT_CAP_ON);
 
     if (animFrame == 0) {
-        enable_time_stop();
+        
     }
 
     if (animFrame == 28) {

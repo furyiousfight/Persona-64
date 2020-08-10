@@ -386,6 +386,7 @@ void render_hud_camera_status(void) {
  * Render HUD strings using hudDisplayFlags with it's render functions,
  * excluding the cannon reticle which detects a camera preset for it.
  */
+
 void render_hud(void) {
     s16 hudDisplayFlags;
 #ifdef VERSION_EU
