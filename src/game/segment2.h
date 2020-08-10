@@ -65,46 +65,5 @@ extern Gfx dl_billboard_num_8[];
 extern Gfx dl_billboard_num_9[];
 
 
-extern u8 Mario_neutral_1_texture[];
-extern u8 Mario_neutral_1_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_2_texture[];
-extern u8 Mario_neutral_2_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_3_texture[];
-extern u8 Mario_neutral_3_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_4_texture[];
-extern u8 Mario_neutral_4_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_5_texture[];
-extern u8 Mario_neutral_5_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_6_texture[];
-extern u8 Mario_neutral_6_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_7_texture[];
-extern u8 Mario_neutral_7_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_8_texture[];
-extern u8 Mario_neutral_8_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_9_texture[];
-extern u8 Mario_neutral_9_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_10_texture[];
-extern u8 Mario_neutral_10_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_12_texture[];
-extern u8 Mario_neutral_12_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_13_texture[];
-extern u8 Mario_neutral_13_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_14_texture[];
-extern u8 Mario_neutral_14_texture_pal_rgba16[];
-
-extern u8 Mario_neutral_15_texture[];
-extern u8 Mario_neutral_15_texture_pal_rgba16[];
 
 #endif // SEGMENT2_H
