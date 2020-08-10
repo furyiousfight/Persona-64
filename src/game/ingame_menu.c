@@ -3611,6 +3611,24 @@ s16 render_menus_and_dialogs() {
     s16 mode = 0;
 
     create_dl_ortho_matrix();
+    if (gMenuMode != -1) {
+        switch (gMenuMode) {
+            case 0:
+                mode = render_pause_courses_and_castle();
+                break;
+            case 1:
+                mode = render_pause_courses_and_castle();
+                break;
+            case 2:
+                mode = render_course_complete_screen();
+                break;
+            case 3:
+                mode = render_course_complete_screen();
+                break;
+        }
+    } else if (gDialogID != -1) 
+        // The Peach "Dear Mario" message needs to be repositioned separately
+        if (gDialogID == 167) {
 Mario_neutral_15(180,149,152,12,0,0);
 Mario_neutral_14(180,143,152,13,0,0);
 Mario_neutral_13(180,137,152,12,0,0);
@@ -3626,6 +3644,7 @@ Mario_neutral_4(180,83,152,13,0,0);
 Mario_neutral_3(180,77,152,12,0,0);
 Mario_neutral_2(180,71,152,13,0,0);
 Mario_neutral_1(180,65,152,12,0,0);
+        }
     if (gMenuMode != -1) {
         switch (gMenuMode) {
             case 0:
