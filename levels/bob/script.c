@@ -47,7 +47,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_WARIO, -1101, 378, -516, 0, 0, 0, 0x00000000, bhvWarioNPC),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_area_root_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_EVENT_PIRANHA_PLANT),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SPOOKY),
 		TERRAIN_TYPE(TERRAIN_SNOW),
 	END_AREA(),
 

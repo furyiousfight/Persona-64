@@ -886,7 +886,7 @@ s16 get_dialog_id(void) {
 void create_dialog_box(s16 dialog) {
     if (gDialogID == -1) {
         gDialogID = dialog;
-        gDialogBoxType = DIALOG_TYPE_ROTATE;
+       
     }
 }
 
@@ -894,21 +894,21 @@ void create_dialog_box_with_var(s16 dialog, s32 dialogVar) {
     if (gDialogID == -1) {
         gDialogID = dialog;
         gDialogVariable = dialogVar;
-        gDialogBoxType = DIALOG_TYPE_ROTATE;
+      
     }
 }
 
 void create_dialog_inverted_box(s16 dialog) {
     if (gDialogID == -1) {
         gDialogID = dialog;
-        gDialogBoxType = DIALOG_TYPE_ZOOM;
+    
     }
 }
 
 void create_dialog_box_with_response(s16 dialog) {
     if (gDialogID == -1) {
         gDialogID = dialog;
-        gDialogBoxType = DIALOG_TYPE_ROTATE;
+       
         gLastDialogResponse = 1;
     }
 }
@@ -948,17 +948,13 @@ void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
     switch (gDialogBoxType) {
         case DIALOG_TYPE_ROTATE: // Renders a dialog black box with zoom and rotation
             if (gDialogBoxState == DIALOG_STATE_OPENING || gDialogBoxState == DIALOG_STATE_CLOSING) {
-                create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0 / gDialogBoxScale, 1.0 / gDialogBoxScale, 1.0f);
-                // convert the speed into angle
-                create_dl_rotation_matrix(MENU_MTX_NOPUSH, gDialogBoxOpenTimer * 4.0f, 0, 0, 1.0f);
+            
             }
             gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 150);
             break;
         case DIALOG_TYPE_ZOOM: // Renders a dialog white box with zoom
             if (gDialogBoxState == DIALOG_STATE_OPENING || gDialogBoxState == DIALOG_STATE_CLOSING) {
-                create_dl_translation_matrix(MENU_MTX_NOPUSH, 65.0 - (65.0 / gDialogBoxScale),
-                                              (40.0 / gDialogBoxScale) - 40, 0);
-                create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0 / gDialogBoxScale, 1.0 / gDialogBoxScale, 1.0f);
+       
             }
             gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 150);
             break;
@@ -1711,7 +1707,7 @@ void render_dialog_entries(void) {
         case DIALOG_STATE_OPENING:
             if (gDialogBoxOpenTimer == DEFAULT_DIALOG_BOX_ANGLE) {
                 play_dialog_sound(gDialogID);
-                play_sound(SOUND_MENU_MESSAGE_APPEAR, gDefaultSoundArgs);
+                
             }
 
             if (gDialogBoxType == DIALOG_TYPE_ROTATE) {
@@ -1740,7 +1736,7 @@ void render_dialog_entries(void) {
                     gDialogBoxState = DIALOG_STATE_CLOSING;
                 } else {
                     gDialogBoxState = DIALOG_STATE_HORIZONTAL;
-                    play_sound(SOUND_MENU_MESSAGE_NEXT_PAGE, gDefaultSoundArgs);
+                    
                 }
             }
 #if !defined(VERSION_JP) && !defined(VERSION_SH)
@@ -1762,7 +1758,7 @@ void render_dialog_entries(void) {
         case DIALOG_STATE_CLOSING:
             if (gDialogBoxOpenTimer == 20.0f) {
                 level_set_transition(0, 0);
-                play_sound(SOUND_MENU_MESSAGE_DISAPPEAR, gDefaultSoundArgs);
+                
 
                 if (gDialogBoxType == DIALOG_TYPE_ZOOM) {
                     trigger_cutscene_dialog(2);
@@ -3611,7 +3607,7 @@ s16 render_menus_and_dialogs() {
     s16 mode = 0;
 
     create_dl_ortho_matrix();
-    if (gMenuMode != -1) {
+    if (gMenuMode != -1) { // copy all of these lines and replace the portrait and textbox id
         switch (gMenuMode) {
             case 0:
                 mode = render_pause_courses_and_castle();
@@ -3627,8 +3623,7 @@ s16 render_menus_and_dialogs() {
                 break;
         }
     } else if (gDialogID != -1) 
-        // The Peach "Dear Mario" message needs to be repositioned separately
-        if (gDialogID == 167) {
+        if (gDialogID == 000,167) {
 Mario_neutral_15(180,149,152,12,0,0);
 Mario_neutral_14(180,143,152,13,0,0);
 Mario_neutral_13(180,137,152,12,0,0);
@@ -3644,7 +3639,7 @@ Mario_neutral_4(180,83,152,13,0,0);
 Mario_neutral_3(180,77,152,12,0,0);
 Mario_neutral_2(180,71,152,13,0,0);
 Mario_neutral_1(180,65,152,12,0,0);
-        }
+        } // final line of the
     if (gMenuMode != -1) {
         switch (gMenuMode) {
             case 0:
