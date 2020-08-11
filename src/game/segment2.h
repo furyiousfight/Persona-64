@@ -111,4 +111,14 @@ extern u8 Mario_neutral_2_texture_pal_rgba16[];
 extern u8 Mario_neutral_1_texture[];
 extern u8 Mario_neutral_1_texture_pal_rgba16[];
 
+extern u8 Mario_neutral_16_texture[];
+
+extern u8 Mario_neutral_17_texture[];
+
+extern u8 Mario_neutral_18_texture[];
+
+extern u8 Mario_neutral_19_texture[];
+
+extern u8 Mario_neutral_20_texture[];
+
 #endif // SEGMENT2_H
