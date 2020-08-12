@@ -17,12 +17,11 @@
 #endif
 
 DEFINE_DIALOG(DIALOG_000, 1, 3, 30, 80, _("\
-Brrr! Sure is chilly today!\n\
-How's about we go and get\n\
-some spaghetti together?\n\
-You feel as though your\n\
-relationship with Wario\n\
-will advance soon."))
+Brrr! Sure is chilly today, howsabout you and me go\n\
+and get some spaghetti together? My treat!\n\
+\n\
+You feel as though your relationship with Wario\n\
+will advance soon..."))
 
 DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 80, _("\
 Watch out! If you wander\n\

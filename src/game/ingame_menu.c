@@ -3051,15 +3051,17 @@ s16 render_course_complete_screen(void) {
 
 
 
+
 void Mario_neutral_1(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3068,27 +3070,30 @@ void Mario_neutral_1(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_1_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_2(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3097,27 +3102,30 @@ void Mario_neutral_2(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_2_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_3(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3126,27 +3134,30 @@ void Mario_neutral_3(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_3_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_4(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3155,27 +3166,30 @@ void Mario_neutral_4(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_4_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_5(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3184,27 +3198,30 @@ void Mario_neutral_5(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_5_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_6(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3213,27 +3230,30 @@ void Mario_neutral_6(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_6_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_7(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3242,27 +3262,30 @@ void Mario_neutral_7(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_7_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_8(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3271,27 +3294,30 @@ void Mario_neutral_8(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_8_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_9(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3300,27 +3326,30 @@ void Mario_neutral_9(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_9_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_10(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3329,27 +3358,30 @@ void Mario_neutral_10(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_10_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_11(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3358,27 +3390,30 @@ void Mario_neutral_11(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_11_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_12(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3387,27 +3422,30 @@ void Mario_neutral_12(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_12_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_13(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3416,27 +3454,30 @@ void Mario_neutral_13(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_13_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_14(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3445,27 +3486,30 @@ void Mario_neutral_14(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_14_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_15(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3474,27 +3518,30 @@ void Mario_neutral_15(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_15_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_16(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3503,27 +3550,30 @@ void Mario_neutral_16(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_16_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_17(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3532,27 +3582,30 @@ void Mario_neutral_17(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_17_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_18(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3561,27 +3614,30 @@ void Mario_neutral_18(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_18_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_19(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3590,27 +3646,30 @@ void Mario_neutral_19(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_19_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 void Mario_neutral_20(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	s32 xl = MAX(0, x);
 	s32 yl = MAX(0, y);
-	s32 xh = MAX(0, x + width - 1);
-	s32 yh = MAX(0, y + height - 1);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
 	s = (x < 0) ? s - x : s;
 	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_COPY);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
 	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -3619,23 +3678,127 @@ void Mario_neutral_20(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
 	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_20_texture));
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
 	gDPLoadSync(gDisplayListHead++);
-	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 40);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
 	gDPPipeSync(gDisplayListHead++);
 	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
-	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 40);
-	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  4096, 1024);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
 	gDPPipeSync(gDisplayListHead++);
-	gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+
 	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
 	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
 	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
+}
+void Mario_neutral_21(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
+	s32 xl = MAX(0, x);
+	s32 yl = MAX(0, y);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
+	s = (x < 0) ? s - x : s;
+	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
+	gDPPipeSync(gDisplayListHead++);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
+	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
+	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
+	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+	gDPTileSync(gDisplayListHead++);
+	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_21_texture));
+	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
+	gDPLoadSync(gDisplayListHead++);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
+	gDPPipeSync(gDisplayListHead++);
+	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
+	gDPPipeSync(gDisplayListHead++);
+
+	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
+	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
+	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
+	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
+}
+void Mario_neutral_22(s32 x, s32 y, s32 width, s32 height, s32 s, s32 t) {
+	s32 xl = MAX(0, x);
+	s32 yl = MAX(0, y);
+	s32 xh = MAX(0, x + width);
+	s32 yh = MAX(0, y + height);
+	s = (x < 0) ? s - x : s;
+	t = (y < 0) ? t - y : t;
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_POINT);
+	gDPPipeSync(gDisplayListHead++);
+	gDPSetCombineMode(gDisplayListHead++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+	gDPSetTexturePersp(gDisplayListHead++, G_TP_NONE);
+	gDPSetAlphaCompare(gDisplayListHead++, G_AC_THRESHOLD);
+	gDPSetBlendColor(gDisplayListHead++, 255, 255, 255, 255);
+	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+	gDPTileSync(gDisplayListHead++);
+	gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 179, segmented_to_virtual(Mario_neutral_22_texture));
+	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
+	gDPLoadSync(gDisplayListHead++);
+	gDPLoadTile(gDisplayListHead++, 7, 0, 0, 712, 36);
+	gDPPipeSync(gDisplayListHead++);
+	gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 45, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 4, 0, G_TX_WRAP | G_TX_NOMIRROR, 8, 0);
+	gDPSetTileSize(gDisplayListHead++, 0, 0, 0, 712, 36);
+	gSPScisTextureRectangle(gDisplayListHead++, xl << 2, yl << 2, xh << 2, yh << 2, 0, s << 5, t << 5,  0x800, 0x800);
+	gDPPipeSync(gDisplayListHead++);
+	gSPTexture(gDisplayListHead++, 65535, 65535, 0, G_TX_RENDERTILE, G_OFF);
+	gDPSetTexturePersp(gDisplayListHead++, G_TP_PERSP);
+	gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
+	gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gDPSetTextureFilter(gDisplayListHead++, G_TF_BILERP);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
 }
 s16 render_menus_and_dialogs() {
     s16 mode = 0;
 
     create_dl_ortho_matrix();
-    
+   if (gMenuMode != -1) { // copy all of these lines and replace the portrait and textbox id
+        switch (gMenuMode) {
+            case 0:
+                mode = render_pause_courses_and_castle();
+                break;
+            case 1:
+                mode = render_pause_courses_and_castle();
+                break;
+            case 2:
+                mode = render_course_complete_screen();
+                break;
+            case 3:
+                mode = render_course_complete_screen();
+                break;
+        }
+    } else if (gDialogID != -1) 
+        if (gDialogID == 0,167) {
+Mario_neutral_1(200,45,179,5,0,0);
+Mario_neutral_2(200,50,179,5,0,0);
+Mario_neutral_3(200,55,179,5,0,0);
+Mario_neutral_4(200,60,179,5,0,0);
+Mario_neutral_5(200,65,179,5,0,0);
+Mario_neutral_6(200,70,179,5,0,0);
+Mario_neutral_7(200,75,179,5,0,0);
+Mario_neutral_8(200,80,179,5,0,0);
+Mario_neutral_9(200,85,179,5,0,0);
+Mario_neutral_10(200,90,179,5,0,0);
+Mario_neutral_11(200,95,179,5,0,0);
+Mario_neutral_12(200,100,179,5,0,0);
+Mario_neutral_13(200,105,179,5,0,0);
+Mario_neutral_14(200,110,179,5,0,0);
+Mario_neutral_15(200,115,179,5,0,0);
+Mario_neutral_16(200,120,179,5,0,0);
+Mario_neutral_17(200,125,179,5,0,0);
+Mario_neutral_18(200,130,179,5,0,0);
+Mario_neutral_19(200,135,179,5,0,0);
+Mario_neutral_20(200,140,179,5,0,0);
+Mario_neutral_21(200,145,179,5,0,0);
+Mario_neutral_22(200,150,89.5,5,0,0);
+        } // final line of the
     if (gMenuMode != -1) {
         switch (gMenuMode) {
             case 0:
