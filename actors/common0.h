@@ -207,4 +207,6 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 
 #include "Wario/anim_header.h"
+#include "Luigi/geo_header.h"
+
 #endif

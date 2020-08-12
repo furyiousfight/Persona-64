@@ -29,3 +29,4 @@
 #include "koopa_shell/geo.inc.c"
 
 #include "Wario/geo.inc.c"
+#include "Luigi/geo.inc.c"
